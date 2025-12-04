@@ -4,22 +4,18 @@ FROM php:8.1-apache
 # Establece el directorio de trabajo donde estará la aplicación
 WORKDIR /var/www/html
 
-# Copia los archivos de tu proyecto al directorio de trabajo del contenedor
+# Copia los archivos de tu proyecto al directorio de trabajo
 COPY . /var/www/html/
 
-# Si usas Composer, descomenta las siguientes líneas
-# COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-# RUN composer install --no-dev --optimize-autoloader
-
-# Habilita el módulo de reescritura de Apache (necesario para URLs limpias con .htaccess)
+# Habilita el módulo de reescritura de Apache
 RUN a2enmod rewrite
 
-# Si tu carpeta pública es la raíz, usa el comando por defecto.
-# Si tienes una carpeta 'public/', necesitas reconfigurar Apache, 
-# pero la forma más sencilla es manejarlo con el .htaccess y el Start Command en Render.
+# 🚨 NUEVAS INSTRUCCIONES: Configura Apache para que use la carpeta 'public' como DocumentRoot
+RUN sed -i -e 's/html/html\/public/g' /etc/apache2/sites-available/000-default.conf
+RUN sed -i -e 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf
 
 # Expone el puerto por defecto de Apache
 EXPOSE 80
 
-# El comando por defecto para iniciar Apache (Render lo ejecuta automáticamente)
+# Comando por defecto para iniciar Apache
 CMD ["apache2-foreground"]
