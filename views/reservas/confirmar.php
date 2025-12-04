@@ -9,7 +9,7 @@
         <p class="fs-4"><strong>Total a pagar: S/.<?= $total ?></strong></p>
     </div>
 
-    <a href="/home" class="btn btn-primary mt-3">
+    <a href="/" class="btn btn-primary mt-3">
         <i class="bi bi-house-door"></i> Volver al inicio
     </a>
 

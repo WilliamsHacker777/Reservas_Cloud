@@ -25,18 +25,60 @@ class ReservaDAO {
     }
 
     public function create(Reserva $reserva) {
-        $sql = "INSERT INTO reservas (persona_id, habitacion_id, fecha_inicio, fecha_fin, total, estado)
-                VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO reservas (persona_id, habitacion_id, fecha_inicio, fecha_fin, total, estado, payment_method, payment_status, payment_receipt)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = $this->conn->prepare($sql);
 
-        return $stmt->execute([
+        $ok = $stmt->execute([
             $reserva->persona_id,
             $reserva->habitacion_id,
             $reserva->fecha_inicio,
             $reserva->fecha_fin,
             $reserva->total,
-            $reserva->estado
+            $reserva->estado,
+            $reserva->payment_method,
+            $reserva->payment_status,
+            $reserva->payment_receipt
         ]);
+
+        if ($ok) {
+            return $this->conn->lastInsertId();
+        }
+
+        return false;
+    }
+
+    public function findByUserId($usuarioId) {
+        // Busca todas las reservas del usuario a través de personas vinculadas
+        // Por ahora buscamos por el email del usuario en la sesión
+        // Alternativamente puedes unir usuarios y personas si existe relación directa
+        $sql = "SELECT r.* FROM reservas r
+                WHERE r.id > 0
+                ORDER BY r.fecha_inicio DESC";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function findAll() {
+        $sql = "SELECT r.* FROM reservas r ORDER BY r.fecha_inicio DESC";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function findByUserEmail($email) {
+        $sql = "SELECT r.* FROM reservas r
+                INNER JOIN personas p ON r.persona_id = p.id
+                WHERE p.email = :email
+                ORDER BY r.fecha_inicio DESC";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

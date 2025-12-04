@@ -27,4 +27,11 @@ class HabitacionDAO {
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    // Actualizar estado de habitación (0,1,2)
+    public function updateEstado($id, $estado) {
+        $sql = "UPDATE habitaciones SET estado = :estado WHERE id = :id";
+        $stmt = $this->conn->prepare($sql);
+        return $stmt->execute([':estado' => $estado, ':id' => $id]);
+    }
 }

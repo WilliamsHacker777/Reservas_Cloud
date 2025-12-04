@@ -7,5 +7,8 @@ class Reserva {
     public $fecha_fin;
     public $total;
     public $estado;
+    public $payment_method;
+    public $payment_status;
+    public $payment_receipt;
 }
 ?>
