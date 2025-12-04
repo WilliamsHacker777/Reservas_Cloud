@@ -64,7 +64,7 @@
 </div>
 <?php endif; ?>
 
-<!-- Todas las Habitaciones Disponibles -->
+<!-- Todas las Habitaciones Disponibles. -->
 <div class="container" style="margin-bottom: 60px;">
     <div class="mb-4">
         <h2 class="fw-bold" style="font-size: 2.2rem; color: #333; border-bottom: 3px solid #667eea; padding-bottom: 15px; display: inline-block;">🏨 Todas Nuestras Habitaciones</h2>
