@@ -1,4 +1,4 @@
-# Usa una imagen base oficial de PHP con Apache
+# Usa una imagen base oficial de PHP con Apache.
 FROM php:8.1-apache
 
 # Establece el directorio de trabajo donde estará la aplicación

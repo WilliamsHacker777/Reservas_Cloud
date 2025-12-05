@@ -8,6 +8,8 @@ class Database {
     {
         if (!self::$instance) {
 
+            // Ahora lee las variables del entorno del servidor (Render)
+            //Arriba Alianza TLV
             $host = getenv('DB_HOST') ?: "MYSQL9001.site4now.net";
             $db   = getenv('DB_NAME') ?: "db_ac1074_sistema";
             $user = getenv('DB_USER') ?: "ac1074_sistema";
