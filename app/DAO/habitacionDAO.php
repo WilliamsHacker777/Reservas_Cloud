@@ -34,6 +34,7 @@ class HabitacionDAO {
         $stmt = $this->conn->prepare($sql);
         return $stmt->execute([':estado' => $estado, ':id' => $id]);
     }
+<<<<<<< HEAD
 
     // Crear nueva habitación
     public function create(Habitacion $habitacion) {
@@ -95,4 +96,6 @@ class HabitacionDAO {
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['total'] > 0;
     }
+=======
+>>>>>>> 4131f4c04a1090d01c13b4058ab4e30607a33ecb
 }

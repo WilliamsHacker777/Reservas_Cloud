@@ -38,18 +38,33 @@ $usuario = $_SESSION["user"] ?? null;
                     </a>
                 </li>
 
+<<<<<<< HEAD
 
                 <?php if ($usuario): ?>
 
+=======
+                <li class="nav-item">
+                    <a class="nav-link" href="/?action=reservar">
+                        <i class="bi bi-calendar-check"></i> Reservar
+                    </a>
+                </li>
+
+                <?php if ($usuario): ?>
+
+                    <!-- Usuario logueado -->
+>>>>>>> 4131f4c04a1090d01c13b4058ab4e30607a33ecb
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
                             <i class="bi bi-person-circle"></i> Mi Cuenta
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
+<<<<<<< HEAD
                             <?php if ($usuario['rol'] === 'admin'): ?>
                                 <li><a class="dropdown-item" href="/?action=admin"><i class="bi bi-speedometer2"></i> Panel Admin</a></li>
                                 <li><hr class="dropdown-divider"></li>
                             <?php endif; ?>
+=======
+>>>>>>> 4131f4c04a1090d01c13b4058ab4e30607a33ecb
                             <li><a class="dropdown-item" href="/?action=perfil"><i class="bi bi-person-badge"></i> Mi perfil</a></li>
                             <li><a class="dropdown-item" href="/?action=misreservas"><i class="bi bi-bookmark"></i> Mis reservas</a></li>
                             <li><hr class="dropdown-divider"></li>
@@ -59,6 +74,10 @@ $usuario = $_SESSION["user"] ?? null;
 
                 <?php else: ?>
 
+<<<<<<< HEAD
+=======
+                    <!-- Usuario NO logueado -->
+>>>>>>> 4131f4c04a1090d01c13b4058ab4e30607a33ecb
                     <li class="nav-item">
                         <a class="nav-link" href="/?action=login">
                             <i class="bi bi-person-circle"></i> Ingresar

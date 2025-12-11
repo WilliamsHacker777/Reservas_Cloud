@@ -2,6 +2,7 @@
 
 <div class="container py-5">
     <div class="row justify-content-center">
+<<<<<<< HEAD
         <div class="col-lg-6 col-md-8">
             
             <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
@@ -84,9 +85,37 @@
                 <small class="text-muted">¿Necesitas ayuda? <a href="https://wa.link/kkgchc" class="text-decoration-none">Contactar soporte</a></small>
                 </div>
 
+=======
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title">Mi Perfil</h4>
+                    <p class="text-muted">Información básica de la cuenta</p>
+
+                    <dl class="row mt-4">
+                        <dt class="col-sm-3">Email</dt>
+                        <dd class="col-sm-9"><?= htmlspecialchars($user['email'] ?? 'Sin email') ?></dd>
+
+                        <dt class="col-sm-3">Rol</dt>
+                        <dd class="col-sm-9"><?= htmlspecialchars($user['rol'] ?? 'Usuario') ?></dd>
+
+                        <dt class="col-sm-3">ID</dt>
+                        <dd class="col-sm-9"><?= htmlspecialchars($user['id'] ?? '-') ?></dd>
+                    </dl>
+
+                    <div class="mt-4">
+                        <a href="/?action=misreservas" class="btn btn-outline-primary">Ver mis reservas</a>
+                        <a href="/?action=logout" class="btn btn-outline-secondary ms-2">Cerrar sesión</a>
+                    </div>
+                </div>
+>>>>>>> 4131f4c04a1090d01c13b4058ab4e30607a33ecb
             </div>
         </div>
     </div>
 </div>
 
+<<<<<<< HEAD
 <?php require_once __DIR__ . '/../layout/footer.php'; ?>
+=======
+<?php require_once __DIR__ . '/../layout/footer.php'; ?>
+>>>>>>> 4131f4c04a1090d01c13b4058ab4e30607a33ecb

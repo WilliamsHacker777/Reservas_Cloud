@@ -6,19 +6,31 @@ if (empty($habitacion)) {
     return;
 }
 
+<<<<<<< HEAD
 // 1. GENERAMOS LA FECHA ACTUAL (YYYY-MM-DD)
 $fechaHoy = date('Y-m-d');
 
 // Obtener email del usuario si está logueado
+=======
+// Obtener email del usuario si está logueado (manejar objetos incompletos de sesión)
+>>>>>>> 4131f4c04a1090d01c13b4058ab4e30607a33ecb
 $userEmail = '';
 if (isset($_SESSION['user'])) {
   $u = $_SESSION['user'];
   if (is_array($u) && isset($u['email'])) {
     $userEmail = $u['email'];
   } elseif (is_object($u)) {
+<<<<<<< HEAD
     $className = get_class($u);
     if ($className === '__PHP_Incomplete_Class') {
       $arr = (array)$u; 
+=======
+    // Si la clase no fue cargada al unserialize, PHP crea __PHP_Incomplete_Class.
+    // Evitamos acceder directamente a propiedades en ese caso para no generar warnings.
+    $className = get_class($u);
+    if ($className === '__PHP_Incomplete_Class') {
+      $arr = (array)$u; // convertir a array y buscar clave que contenga 'email'
+>>>>>>> 4131f4c04a1090d01c13b4058ab4e30607a33ecb
       foreach ($arr as $k => $v) {
         if (stripos($k, 'email') !== false) {
           $userEmail = $v;
@@ -62,12 +74,16 @@ if (isset($_SESSION['user'])) {
 
             <div class="col-md-6 mb-3">
               <label class="form-label">Teléfono</label>
+<<<<<<< HEAD
               <input name="telefono" id="telefonoInput" class="form-control" 
                      required 
                      maxlength="9" 
                      pattern="[0-9]{9}"
                      placeholder="Ej: 999999999"
                      inputmode="numeric">
+=======
+              <input name="telefono" class="form-control" required>
+>>>>>>> 4131f4c04a1090d01c13b4058ab4e30607a33ecb
             </div>
 
             <div class="col-md-12 mb-3">
@@ -87,11 +103,19 @@ if (isset($_SESSION['user'])) {
 
             <div class="col-md-6 mb-3">
               <label class="form-label">Fecha inicio</label>
+<<<<<<< HEAD
               <input type="date" id="fechaInicio" name="fecha_inicio" class="form-control" required min="<?= $fechaHoy ?>">
             </div>
             <div class="col-md-6 mb-3">
               <label class="form-label">Fecha fin</label>
               <input type="date" id="fechaFin" name="fecha_fin" class="form-control" required min="<?= $fechaHoy ?>">
+=======
+              <input type="date" name="fecha_inicio" class="form-control" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Fecha fin</label>
+              <input type="date" name="fecha_fin" class="form-control" required>
+>>>>>>> 4131f4c04a1090d01c13b4058ab4e30607a33ecb
             </div>
           </div>
 
@@ -140,7 +164,11 @@ if (isset($_SESSION['user'])) {
                   $qrData = "YAPE|{$yapePhone}|S/{$amount}";
                   $qrUrl = "https://chart.googleapis.com/chart?cht=qr&chs=220x220&chl=" . urlencode($qrData);
                 ?>
+<<<<<<< HEAD
                 <img src="img/yape.jpeg" class="img-fluid" style="max-width:220px;height:auto;" alt="QR Yape">
+=======
+                <<img src="img/yape.jpeg" class="img-fluid" style="max-width:220px;height:auto;" alt="QR Yape">
+>>>>>>> 4131f4c04a1090d01c13b4058ab4e30607a33ecb
                 <div class="small text-muted mt-2">Número Yape: <?= htmlspecialchars($yapePhone) ?></div>
                 <div class="small text-muted">Monto: S/ <?= number_format($habitacion['precio'], 2) ?></div>
               </div>
@@ -190,10 +218,13 @@ const dniInputElem = document.getElementById('dniInput');
 const nombresElem = document.getElementById('nombres');
 const apellidosElem = document.getElementById('apellidos');
 
+<<<<<<< HEAD
 // Nuevo selector para el teléfono
 const telefonoInputElem = document.getElementById('telefonoInput');
 
 // 1. VALIDACIÓN DNI
+=======
+>>>>>>> 4131f4c04a1090d01c13b4058ab4e30607a33ecb
 dniInputElem.addEventListener('input', async (e) => {
   const val = (e.target.value || '').replace(/\D/g, '');
   if (val.length === 8) {
@@ -206,6 +237,10 @@ dniInputElem.addEventListener('input', async (e) => {
 
       const text = await resp.text();
       const data = JSON.parse(text);
+<<<<<<< HEAD
+=======
+      // Esperamos campos: nombres, apellidoPaterno, apellidoMaterno
+>>>>>>> 4131f4c04a1090d01c13b4058ab4e30607a33ecb
       if (data.nombres) {
         nombresElem.value = data.nombres;
         const ap = [(data.apellidoPaterno||''), (data.apellidoMaterno||'')].filter(Boolean).join(' ');
@@ -220,11 +255,16 @@ dniInputElem.addEventListener('input', async (e) => {
       alert('Error al consultar RENIEC: ' + err.message);
     }
   } else {
+<<<<<<< HEAD
+=======
+    // limpiar campos si no hay 8 dígitos
+>>>>>>> 4131f4c04a1090d01c13b4058ab4e30607a33ecb
     nombresElem.value = '';
     apellidosElem.value = '';
   }
 });
 
+<<<<<<< HEAD
 // 2. VALIDACIÓN TELÉFONO EN TIEMPO REAL
 // Esto borra cualquier caracter que no sea número mientras el usuario escribe
 telefonoInputElem.addEventListener('input', function(e) {
@@ -242,6 +282,8 @@ fechaInicioElem.addEventListener('change', function() {
 });
 
 
+=======
+>>>>>>> 4131f4c04a1090d01c13b4058ab4e30607a33ecb
 function togglePayment() {
   if (pmYape.checked) {
     cardFields.style.display = 'none';
@@ -256,4 +298,8 @@ pmYape.addEventListener('change', togglePayment);
 togglePayment();
 </script>
 </body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> 4131f4c04a1090d01c13b4058ab4e30607a33ecb
