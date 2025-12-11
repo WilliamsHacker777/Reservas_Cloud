@@ -1,41 +1,20 @@
 <?php
 
-require_once __DIR__ . '/../controllers/HomeController.php';
-require_once __DIR__ . '/../controllers/ReservaController.php';
-require_once __DIR__ . '/../controllers/AuthController.php';
-require_once __DIR__ . '/../controllers/HabitacionController.php';
+require_once __DIR__ . "/controller.php";
+require_once __DIR__ . "/../controllers/homeController.php";
+require_once __DIR__ . "/../controllers/authController.php";
+require_once __DIR__ . "/../controllers/habitacionController.php";
+require_once __DIR__ . "/../controllers/reservaController.php";
+require_once __DIR__ . "/../controllers/AdminController.php";
 
 class Router {
 
-    public static function handle()
+    public function handle()
     {
-        // Obtener ruta (si no trae nada, es home)
-        $url = $_GET['url'] ?? '';
+        $action = $_GET['action'] ?? 'home';
 
-        switch ($url) {
-
-            // ---------- HOME ----------
-            case '':
-            case 'home':
-                (new HomeController())->index();
-                break;
-
-            // ---------- HABITACIONES ----------
-            case 'habitaciones':
-                (new HabitacionController())->index();
-                break;
-
-            // ---------- FORMULARIO DE RESERVA ----------
-            case 'reservar':
-                (new ReservaController())->reservar();
-                break;
-
-            // ---------- GUARDAR RESERVA (POST) ----------
-            case 'reservar/guardar':
-                (new ReservaController())->guardar();
-                break;
-
-            // ---------- LOGIN ----------
+        switch ($action)
+        {
             case 'login':
                 (new AuthController())->loginView();
                 break;
@@ -43,11 +22,76 @@ class Router {
             case 'login/process':
                 (new AuthController())->process();
                 break;
+    
 
-            // ---------- ERROR 404 ----------
+            case 'register':
+                (new AuthController())->registerView();
+                break;
+
+            case 'register/process':
+                (new AuthController())->registerProcess();
+                break;
+
+            case 'reservar':
+                (new ReservaController())->reservar();
+                break;
+
+            case 'reservar/pago':
+                (new ReservaController())->pagoView();
+                break;
+
+            case 'reservar/guardar':
+                (new ReservaController())->guardar();
+                break;
+
+            case 'reservar/guardarPago':
+                (new ReservaController())->guardarPago();
+                break;
+
+            case 'misreservas':
+                (new ReservaController())->misReservas();
+                break;
+
+            case 'perfil':
+                (new AuthController())->profileView();
+                break;
+
+            // Rutas de administrador
+            case 'admin':
+                (new AdminController())->dashboard();
+                break;
+
+            case 'admin/habitaciones':
+                (new AdminController())->habitaciones();
+                break;
+
+            case 'admin/habitacion/crear':
+                (new AdminController())->crearHabitacionView();
+                break;
+
+            case 'admin/habitacion/guardar':
+                (new AdminController())->guardarHabitacion();
+                break;
+
+            case 'admin/habitacion/editar':
+                (new AdminController())->editarHabitacionView();
+                break;
+
+            case 'admin/habitacion/actualizar':
+                (new AdminController())->actualizarHabitacion();
+                break;
+
+            case 'admin/habitacion/eliminar':
+                (new AdminController())->eliminarHabitacion();
+                break;
+
+            case 'logout':
+                (new AuthController())->logout();
+                break;
             default:
-                http_response_code(404);
-                echo "<h1>404 - Página no encontrada</h1>";
+                (new HomeController())->index();
+            
+
         }
     }
 }

@@ -6,6 +6,7 @@ class Habitacion {
     public $precio;
     public $descripcion;
     public $estado;
+    public $imagen;
 }
 
 ?>

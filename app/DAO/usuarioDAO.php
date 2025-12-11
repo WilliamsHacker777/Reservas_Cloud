@@ -1,73 +1,46 @@
-<?php
+    <?php
 
-require_once __DIR__ . "/../entities/Usuario.php";
+    require_once __DIR__ . "/../entities/Usuario.php";
 
-class UsuarioDAO {
+    class UsuarioDAO {
 
-    private $conn;
+        private $conn;
 
-    public function __construct($conn) {
-        $this->conn = $conn;
-    }
-
-    public function findByEmail($email) {
-
-        $sql = "SELECT * FROM usuarios WHERE email = ? AND activo = 1";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute([$email]);
-
-        if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $u = new Usuario();
-            $u->id       = $row['id'];
-            $u->email    = $row['email'];
-            $u->password = $row['password'];
-            $u->rol      = $row['rol'];
-            $u->activo   = $row['activo'];
-            return $u;
+        public function __construct($conn) {
+            $this->conn = $conn;
         }
 
-        return null;
-    }
+        public function findByEmail($email) {
+            $sql = "SELECT * FROM usuarios WHERE email = :email";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(":email", $email);
+            $stmt->execute();
 
-    public function create(Usuario $usuario) {
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        $sql = "INSERT INTO usuarios (email, password, rol, activo)
-                VALUES (?, ?, ?, ?)";
+            if ($row) {
+                $u = new Usuario();
+                $u->id = $row["id"];
+                $u->email = $row["email"];
+                $u->password = $row["password"];
+                $u->rol = $row["rol"] ?? 'user';
+                $u->activo = $row["activo"] ?? 1;
+                return $u;
+            }
+            return null;
+        }
+
+        public function save( $email, $password) {
+        $sql = "INSERT INTO usuarios(email, password)
+        VALUES ( :email, :password)";
+
 
         $stmt = $this->conn->prepare($sql);
 
         return $stmt->execute([
-            $usuario->email,
-            $usuario->password,  // -> debe llegar con password_hash()
-            $usuario->rol,
-            $usuario->activo
+            ":email"  => $email,
+            ":password" => $password
         ]);
     }
 
-       public function update(Usuario $usuario) {
-
-        $sql = "UPDATE usuarios
-                SET email = ?, rol = ?, activo = ?
-                WHERE id = ?";
-
-        $stmt = $this->conn->prepare($sql);
-
-        return $stmt->execute([
-            $usuario->email,
-            $usuario->rol,
-            $usuario->activo,
-            $usuario->id
-        ]);
     }
-
-       public function updatePassword($id, $newPassword) {
-
-        $sql = "UPDATE usuarios SET password = ? WHERE id = ?";
-        $stmt = $this->conn->prepare($sql);
-
-        return $stmt->execute([
-            $newPassword, // debe venir con password_hash()
-            $id
-        ]);
-    }
-}

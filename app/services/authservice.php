@@ -27,6 +27,17 @@ class AuthService {
         return false;
     }
 
+    public function registrar($nombre, $email, $password)
+        {
+    if ($this->usuarioDAO->findByEmail($email)) {
+        return false;
+    }
+
+        $hashed = password_hash($password, PASSWORD_BCRYPT);
+
+        return $this->usuarioDAO->save($nombre, $email, $hashed);
+    }
+
     public function logout() {
         session_destroy();
     }
@@ -38,4 +49,5 @@ class AuthService {
     public function check() {
         return isset($_SESSION['user']);
     }
+    
 }

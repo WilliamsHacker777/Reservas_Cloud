@@ -2,12 +2,18 @@
 
 class Controller {
 
-    public function render($view, $data = [])
+    public function render($view, $data = [], $fullLayout = true)
     {
         extract($data);
 
-        require_once __DIR__ . "/../../views/layout/header.php";
+        if ($fullLayout) {
+            require_once __DIR__ . "/../../views/layout/header.php";
+        }
+
         require_once __DIR__ . "/../../views/$view.php";
-        require_once __DIR__ . "/../../views/layout/footer.php";
+
+        if ($fullLayout) {
+            require_once __DIR__ . "/../../views/layout/footer.php";
+        }
     }
 }
