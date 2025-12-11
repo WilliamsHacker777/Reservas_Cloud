@@ -5,10 +5,7 @@ require_once __DIR__ . "/../controllers/homeController.php";
 require_once __DIR__ . "/../controllers/authController.php";
 require_once __DIR__ . "/../controllers/habitacionController.php";
 require_once __DIR__ . "/../controllers/reservaController.php";
-<<<<<<< HEAD
 require_once __DIR__ . "/../controllers/AdminController.php";
-=======
->>>>>>> 4131f4c04a1090d01c13b4058ab4e30607a33ecb
 
 class Router {
 
@@ -59,7 +56,6 @@ class Router {
                 (new AuthController())->profileView();
                 break;
 
-<<<<<<< HEAD
             // Rutas de administrador
             case 'admin':
                 (new AdminController())->dashboard();
@@ -89,8 +85,6 @@ class Router {
                 (new AdminController())->eliminarHabitacion();
                 break;
 
-=======
->>>>>>> 4131f4c04a1090d01c13b4058ab4e30607a33ecb
             case 'logout':
                 (new AuthController())->logout();
                 break;

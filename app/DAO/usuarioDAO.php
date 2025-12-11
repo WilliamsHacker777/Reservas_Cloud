@@ -23,11 +23,8 @@
                 $u->id = $row["id"];
                 $u->email = $row["email"];
                 $u->password = $row["password"];
-<<<<<<< HEAD
                 $u->rol = $row["rol"] ?? 'user';
                 $u->activo = $row["activo"] ?? 1;
-=======
->>>>>>> 4131f4c04a1090d01c13b4058ab4e30607a33ecb
                 return $u;
             }
             return null;

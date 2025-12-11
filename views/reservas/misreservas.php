@@ -3,12 +3,7 @@
 <div class="container py-5">
     <div class="row mb-4">
         <div class="col-md-8">
-<<<<<<< HEAD
             <h2 class="fw-bold" style="font-size: 2.2rem; color: #333; border-bottom: 3px solid #667eea; padding-bottom: 15px; display: inline-block;">Historial de reservas</h2>
-=======
-            <h1 class="mb-2">Mis Reservas</h1>
-            <p class="text-muted">Historial y estado de tus reservaciones</p>
->>>>>>> 4131f4c04a1090d01c13b4058ab4e30607a33ecb
         </div>
         <div class="col-md-4 text-md-end">
             <a href="/?action=home" class="btn btn-primary">
